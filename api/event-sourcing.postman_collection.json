@@ -1,0 +1,164 @@
+{
+	"info": {
+		"name": "event-sourcing",
+		"_postman_id": "7c835f47-66c2-8b30-3dfd-8265c19fd783",
+		"description": "This triggers some example requests to github.com/ulich/event-sourcing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create policy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d5c2142-be58-4704-b020-777e7f39b437",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"policyId\", jsonData.id);"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4aaaa835-a118-4a7e-98ec-acb73eb0670a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.unset(\"policyId\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"coverStartDate\": \"2018-03-01\", \"apartmentSize\": 60}"
+				},
+				"url": {
+					"raw": "localhost:8080/policies",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"policies"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "modify policy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83b933c8-2541-469a-add3-f1dd44b199b5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d08ffdee-654a-404f-8e87-7d13b5b485b1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"apartmentSize\": {{$randomInt}}}"
+				},
+				"url": {
+					"raw": "localhost:8080/policies/{{policyId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"policies",
+						"{{policyId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "cancel policy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83b933c8-2541-469a-add3-f1dd44b199b5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d08ffdee-654a-404f-8e87-7d13b5b485b1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"coverEndDate\": \"2018-06-01\"}"
+				},
+				"url": {
+					"raw": "localhost:8080/policies/{{policyId}}/cancellation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"policies",
+						"{{policyId}}",
+						"cancellation"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

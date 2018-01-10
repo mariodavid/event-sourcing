@@ -6,7 +6,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.ulich.eventsourcing.core.event.PolicyEvent;
-import net.ulich.eventsourcing.core.persistence.PolicyPersistenceEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -60,7 +59,7 @@ public class PolicyEventRepositoryBean implements PolicyEventRepository {
 
     private List<PolicyEvent> mapToPolicyEvents(PaginatedQueryList<PolicyPersistenceEvent> persistentEvents) {
         return persistentEvents.stream()
-                    .sorted(Comparator.comparing(PolicyPersistenceEvent::getTimestamp))
+                    .sorted(Comparator.comparing(PolicyPersistenceEvent::getCreatedAt))
                     .map(this::mapToPolicyEvent)
                     .collect(toList());
     }
